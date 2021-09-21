@@ -1,0 +1,20 @@
+{
+  "name": "fresh-library",
+  "version": "0.0.1-0",
+  "main": "./lib-commonjs/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/fresh-library.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "lib-commonjs",
+    "dist"
+  ],
+  "scripts": {
+    "build": "heft build",
+    "test": "heft test",
+    "prepare": "heft build"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -1,0 +1,55 @@
+require('make-promises-safe')
+
+const execa = require('execa')
+const task = require('tasuku')
+const fs = require('fs')
+const axios = require('axios')
+
+async function run(cmd) {
+  await task(`Run "${cmd}"`, async () => {
+    await execa(cmd, {
+      stdio: 'inherit',
+      shell: true,
+    })
+  })
+}
+
+async function main() {
+  await run('rm -rf template')
+  await run('mkdir template')
+  await run('cp skeleton/package.json template/package.json')
+  await run('cp skeleton/tsconfig.json template/tsconfig.json')
+  await run(
+    'cd template && pnpm install --save-dev @rushstack/heft @rushstack/heft-web-rig @types/heft-jest',
+  )
+  await task('Create .gitignore', async () => {
+    const { data: gitignoreTemplate } = await axios.get(
+      'https://raw.githubusercontent.com/github/gitignore/master/Node.gitignore',
+    )
+    const extra = [
+      '# Compiled files',
+      '/lib/',
+      '/lib-commonjs/',
+      '/dist/',
+      '',
+      '# Heft files',
+      '.heft',
+      '',
+      '# Temporary files',
+      'tmp',
+      'temp',
+      '',
+      '# tsdoc',
+      'tsdoc-metadata.json',
+    ]
+    const gitignore = gitignoreTemplate + '\n\n' + extra.join('\n') + '\n'
+    fs.writeFileSync('template/.gitignore', gitignore)
+  })
+  await run('mkdir template/etc')
+  await run('cp -Rv skeleton/src template/src')
+  await run('cp -Rv skeleton/config template/config')
+  await run('cd template && pnpm run test')
+  await run('cd template && pnpm run build')
+}
+
+main()
