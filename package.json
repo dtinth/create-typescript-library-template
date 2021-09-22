@@ -4,5 +4,8 @@
     "execa": "^5.1.1",
     "make-promises-safe": "^5.1.0",
     "tasuku": "^1.0.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.4.1"
   }
 }

@@ -19,7 +19,7 @@ async function main() {
   await run('mkdir template')
   await run('cp skeleton/package.json template/package.json')
   await run('cp skeleton/tsconfig.json template/tsconfig.json')
-  await run('cp .pretterrc template/.pretterrc')
+  await run('cp .prettierrc template/.prettierrc')
   await run(
     'cd template && pnpm install --save-dev @rushstack/heft @rushstack/heft-web-rig @types/heft-jest @microsoft/api-documenter',
   )
