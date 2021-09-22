@@ -21,8 +21,9 @@ async function main() {
   await run('cp skeleton/tsconfig.json template/tsconfig.json')
   await run('cp skeleton/.prettierignore template/.prettierignore')
   await run('cp .prettierrc template/.prettierrc')
+  await run('cp README-template.md template/README.md')
   await run(
-    'cd template && pnpm install --save-dev @rushstack/heft @rushstack/heft-web-rig @types/heft-jest @microsoft/api-documenter',
+    'cd template && pnpm install --save-dev @rushstack/heft @rushstack/heft-web-rig @types/heft-jest @microsoft/api-documenter prettier',
   )
   await task('Create .gitignore', async () => {
     const { data: gitignoreTemplate } = await axios.get(
