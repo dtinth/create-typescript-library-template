@@ -15,6 +15,7 @@ async function run(cmd) {
 }
 
 async function main() {
+  await run('cd template && ../node_modules/.bin/prettier --check')
   await run('cd template && pnpm pack --pack-destination ..')
   await run('cd test-consumer && rm -rf package.json yarn.lock')
   await run("cd test-consumer && echo '{}' > package.json")
