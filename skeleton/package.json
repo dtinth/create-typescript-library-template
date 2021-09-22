@@ -12,9 +12,9 @@
   ],
   "scripts": {
     "build": "heft build",
-    "test": "heft test",
+    "docs": "api-documenter markdown --input temp --output docs/api",
     "prepare": "heft build",
-    "docs": "api-documenter markdown --input temp --output docs/api"
+    "test": "heft test"
   },
   "devDependencies": {},
   "dependencies": {}
