@@ -51,6 +51,7 @@ async function main() {
   await run('cp -Rv skeleton/.github template/.github')
   await run('cd template && pnpm run test')
   await run('cd template && pnpm run build')
+  await run('cd template && pnpm run docs')
   await run('mkdir -p tmp')
   await task('Generate commit message', async () => {
     const message =
