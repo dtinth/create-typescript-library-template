@@ -28,7 +28,7 @@ jobs:
       - name: Update formatted code
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Update generated files as of ${{ github.sha }}
+          commit_message: Format code using Prettier
           file_pattern: .
   test:
     runs-on: ubuntu-20.04
