@@ -50,6 +50,13 @@ async function main() {
   await run('cp -Rv skeleton/config template/config')
   await run('cd template && pnpm run test')
   await run('cd template && pnpm run build')
+  await run('mkdir -p tmp')
+  await task('Generate commit message', async () => {
+    const message =
+      'Fresh TypeScript library as of ' +
+      new Date(Date.now() - 86400e3).toISOString().split('T')[0]
+    fs.writeFileSync('tmp/message', message)
+  })
 }
 
 main()

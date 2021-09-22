@@ -18,7 +18,16 @@ jobs:
         run: node index
       - name: Verify that the template is working
         run: node test
-      - uses: actions/upload-artifact@v2
-        with:
-          name: template
-          path: template
+
+      - name: Obtain a GitHub App Installation Access Token
+        id: githubAppAuth
+        if: github.ref == 'refs/heads/main'
+        run: |
+          TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.GH_APP_CREDENTIALS_TOKEN }})"
+          echo "::add-mask::$TOKEN"
+          echo "::set-output name=token::$TOKEN"
+      - name: Update template
+        if: github.ref == 'refs/heads/main'
+        run: ./sync.sh
+        env:
+          GH_PUSH_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
