@@ -13,7 +13,8 @@
   "scripts": {
     "build": "heft build",
     "test": "heft test",
-    "prepare": "heft build"
+    "prepare": "heft build",
+    "docs": "api-documenter markdown --input temp --output docs/api"
   },
   "devDependencies": {},
   "dependencies": {}

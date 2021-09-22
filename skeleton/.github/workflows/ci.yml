@@ -1,0 +1,27 @@
+name: CI
+on:
+  workflow_dispatch:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - name: Install pnpm
+        run: npm install --global pnpm
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build the library
+        run: pnpm run build
+      - name: Run tests
+        run: pnpm run test
+      - name: Generate API documentation
+        run: pnpm run docs
+      - name: Publish API report and documentation
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update generated files as of ${{ github.sha }}
+          file_pattern: docs/api etc

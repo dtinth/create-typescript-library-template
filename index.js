@@ -20,7 +20,7 @@ async function main() {
   await run('cp skeleton/package.json template/package.json')
   await run('cp skeleton/tsconfig.json template/tsconfig.json')
   await run(
-    'cd template && pnpm install --save-dev @rushstack/heft @rushstack/heft-web-rig @types/heft-jest',
+    'cd template && pnpm install --save-dev @rushstack/heft @rushstack/heft-web-rig @types/heft-jest @microsoft/api-documenter',
   )
   await task('Create .gitignore', async () => {
     const { data: gitignoreTemplate } = await axios.get(
@@ -48,6 +48,7 @@ async function main() {
   await run('mkdir template/etc')
   await run('cp -Rv skeleton/src template/src')
   await run('cp -Rv skeleton/config template/config')
+  await run('cp -Rv skeleton/.github template/.github')
   await run('cd template && pnpm run test')
   await run('cd template && pnpm run build')
   await run('mkdir -p tmp')
